@@ -1,17 +1,22 @@
-import React from 'react'
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls,Stage } from '@react-three/drei'
+import { OrbitControls, Stage } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import React, { Suspense } from "react";
 import Web from './Web'
+
 
 const WebDesign = () => {
   return (
-    <Canvas camera={{ position: [5, 5, 5]}}>
-      <Stage environment="city" intensity={0.3}>
-        <Web/>
-      </Stage>
-      <OrbitControls enableZoom={false}/>
-    </Canvas>
-  )
-}
+    <>
+      <Canvas>
+        <Suspense fallback={null}>
+          <Stage environment="city" intensity={0.6}>
+            <Web/>
+          </Stage>
+          <OrbitControls enableZoom={false} autoRotate />
+        </Suspense>
+      </Canvas>
+    </>
+  );
+};
 
-export default WebDesign
+export default WebDesign;

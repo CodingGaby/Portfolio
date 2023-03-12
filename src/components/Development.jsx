@@ -1,6 +1,6 @@
 import React from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls,Stage } from '@react-three/drei'
+import { OrbitControls } from "@react-three/drei";
 import ReactLogo from './React'
 
 const Development = () => {
