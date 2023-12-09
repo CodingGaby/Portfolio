@@ -1,0 +1,32 @@
+---
+import { type GitHubResponse } from '../types/api'
+import ProCard from './ProCard.astro';
+
+const res = await fetch("https://api.github.com/users/CodingGaby/repos?sort=pushed&direction=desc", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+
+const data: GitHubResponse[] = await res.json(); 
+console.log("Data received:", data); // Log to check the received data structure
+  if (!Array.isArray(data)) {
+    throw new Error("Data is not an array");
+  }
+
+// Filtrar los repositorios con homepage diferente de '' o null
+const filteredRepos = data.filter(repo => repo.homepage !== '' && repo.homepage !== null);
+console.log(filteredRepos)
+---
+<div>
+  {
+    filteredRepos.map((repos) => (
+      <ProCard 
+        name={repos.name}
+        description={repos.description}
+        homepage={repos.homepage}
+      />
+    ))
+  }
+</div>

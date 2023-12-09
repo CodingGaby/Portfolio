@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Resume from "../components/Resume.astro"
 import ExpCard from "../components/ExpCard.astro"
 import Navbar from "../components/Navbar.astro"
+import ProCard from '../components/ProCard.astro';
+import Proyects from '../components/Proyects.astro';
 ---
 
 <Layout title="Coding Gaby 👩‍💻">
@@ -11,6 +13,16 @@ import Navbar from "../components/Navbar.astro"
 		<Resume/>
 		<hr class="border border-solid border-gray-300 dark:border-gray-600 rounded-md">
 		<ExpCard/>
+		<ProCard
+			name='SpaceXLaunches'
+			description='Pagina listar api SpaceX'
+			homepage='https://spacexlaunches-b.vercel.app/'
+		/>
+		<ProCard
+			name='SpaceXLaunches'
+			description='Pagina listar api SpaceX'
+			homepage='https://spacexlaunches-b.vercel.app/'
+		/>
 	</main>
 </Layout>
 
