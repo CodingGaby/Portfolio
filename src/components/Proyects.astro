@@ -9,17 +9,13 @@ const res = await fetch("https://api.github.com/users/CodingGaby/repos?sort=push
   }
 });
 
-const data: GitHubResponse[] = await res.json(); 
-console.log("Data received:", data); // Log to check the received data structure
-  if (!Array.isArray(data)) {
-    throw new Error("Data is not an array");
-  }
+const data: GitHubResponse[] = await res.json();
 
 // Filtrar los repositorios con homepage diferente de '' o null
 const filteredRepos = data.filter(repo => repo.homepage !== '' && repo.homepage !== null);
-console.log(filteredRepos)
+
 ---
-<div>
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-2 sm:flex-row items-center ">
   {
     filteredRepos.map((repos) => (
       <ProCard 
