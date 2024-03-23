@@ -1,10 +1,17 @@
 ---
+import { Image } from 'astro:assets';
 ---
 
 <section class="flex flex-col sm:flex-row items-center gap-5">
   <div class="relative w-44 h-44 bg-gray-700/60 border-8 border-gray-900/80 shadow-lg rounded-full overflow-hidden">
     <span>
-      <img class="rounded-full drop-shadow-2xl" src="https://i.pinimg.com/564x/20/64/f5/2064f5a574a60b919a4da6812fa91769.jpg">
+      <Image
+        width="180" height="180"
+        loading="eager" 
+        class="rounded-full drop-shadow-2xl" 
+        src="https://i.pinimg.com/564x/20/64/f5/2064f5a574a60b919a4da6812fa91769.jpg"
+        alt="Animated me"  
+      />
     </span>
   </div>
   <div class="flex flex-col items-center sm:items-start gap-3">

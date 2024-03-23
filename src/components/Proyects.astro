@@ -1,6 +1,9 @@
 ---
 import { type GitHubResponse } from '../types/api'
+import { db, Proyect } from 'astro:db';
 import ProCard from './ProCard.astro';
+
+const proyects = await db.select().from(Proyect)
 
 const res = await fetch("https://api.github.com/users/CodingGaby/repos?sort=pushed&direction=desc", {
   method: "GET",
@@ -8,6 +11,8 @@ const res = await fetch("https://api.github.com/users/CodingGaby/repos?sort=push
     "Content-Type": "application/json"
   }
 });
+
+
 
 const data: GitHubResponse[] = await res.json();
 
@@ -17,11 +22,12 @@ const filteredRepos = data.filter(repo => repo.homepage !== '' && repo.homepage 
 
 <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-2 sm:flex-row items-center ">
   {
-    filteredRepos.map((repos) => (
+    proyects.map((proy) => (
       <ProCard 
-        name={repos.name}
-        description={repos.description}
-        homepage={repos.homepage}
+        name={proy.name}
+        description={proy.desc}
+        homepage={proy.homePage}
+        imgSrc={proy.img}
       />
     ))
   }

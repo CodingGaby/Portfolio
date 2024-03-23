@@ -3,16 +3,17 @@ interface Props {
   name: string
   description: string
   homepage: string
+  imgSrc: string
 }
 
-const { name, description, homepage } = Astro.props;
+const { name, description, homepage, imgSrc } = Astro.props;
 
 ---
 <a href={homepage} target="_blank" class="max-w-[300px] flex">
-  <div class="!z-5 relative rounded-[20px] max-w-[300px]  bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px undefined block group border-gray-300/30 hover:border-gray-300 border-2  dark:border-gray-700 dark:hover:border-gray-300/30 rounded-[24px] hover:sm:shadow hover:scale-105 transition ">
+  <div class="hover:bg-gray-700/30 !z-5 relative rounded-[20px] max-w-[300px]  bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px undefined block group border-gray-300/30 hover:border-gray-300 border-2  dark:border-gray-700 dark:hover:border-gray-300/30 rounded-[24px] hover:sm:shadow hover:scale-105 transition ">
     <div class="h-full w-full">
         <div class="relative w-full">
-            <img src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/Nft3.3b3e6a4b3ada7618de6c.png" class="mb-3 h-full w-full rounded-[12px] 3xl:h-full 3xl:w-full" alt="">
+            <img src={imgSrc} class="mb-3 h-full w-full rounded-[12px] 3xl:h-full 3xl:w-full" alt="">
         </div>
         <div class="flex items-center justify-between md:items-start">
             <div>
@@ -20,15 +21,7 @@ const { name, description, homepage } = Astro.props;
                 <p class="text-sm font-medium text-slate-400"> { description } </p>
             </div>
             <div class="flex flex-row-reverse">
-                <span class="z-0 ml-px inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#E0E5F2] text-xs text-navy-700 ">+5</span><span class="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white">
-                    <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar1.eeef2af6dfcd3ff23cb8.png" alt="">
-                </span>
-                <span class="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white">
-                    <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar2.5692c39db4f8c0ea999e.png" alt="">
-                </span>
-                <span class="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white">
-                    <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar3.9f646ac5920fa40adf00.png" alt="">
-                </span>
+                
             </div>
         </div>
     </div>

@@ -21,6 +21,18 @@ const { title } = Astro.props;
 		<slot />
 	</body>
 </html>
+<script>
+	const lastTitle = document.title;
+
+	window.addEventListener("blur", () => {
+		document.title = "Come back ;(";
+	});
+	
+	window.addEventListener("focus", () => {
+		document.title = lastTitle;
+	});
+
+</script>
 <style is:global>
 	:root {
 		--accent: 136, 58, 234;
