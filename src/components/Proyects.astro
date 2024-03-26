@@ -1,23 +1,9 @@
 ---
-import { type GitHubResponse } from '../types/api'
 import { db, Proyect } from 'astro:db';
 import ProCard from './ProCard.astro';
 
 const proyects = await db.select().from(Proyect)
 
-const res = await fetch("https://api.github.com/users/CodingGaby/repos?sort=pushed&direction=desc", {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json"
-  }
-});
-
-
-
-const data: GitHubResponse[] = await res.json();
-
-// Filtrar los repositorios con homepage diferente de '' o null
-const filteredRepos = data.filter(repo => repo.homepage !== '' && repo.homepage !== null);
 ---
 
 <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-2 sm:flex-row items-center ">

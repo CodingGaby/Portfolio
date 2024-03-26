@@ -1,5 +1,5 @@
 import { defineDb } from 'astro:db';
-import { defineTable, column, NOW } from 'astro:db';
+import { defineTable, column } from 'astro:db';
 
 const Proyect = defineTable({
   columns: {
