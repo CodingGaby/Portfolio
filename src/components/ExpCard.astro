@@ -1,23 +1,33 @@
 ---
+import formatDate from '../functions/formatDate.ts'
+
+interface Props {
+  job: string
+  enterprise: string
+  dateBgin: Date
+  dateEnd?: Date
+  kAcomp: Array<string>
+}
+
+const { job, enterprise, dateBgin, dateEnd, kAcomp } = Astro.props;
+
+const [dateBginF, dateEndF] = [
+  dateBgin ? formatDate(dateBgin) : "",
+  dateEnd ? formatDate(dateEnd) : ""
+];
+
 ---
 
-<section class="w-full">
-  <header class="font-bold text-2xl text-gray-100 mb-6 flex items-center gap-3">
-    <h2 >
-      Experience 💼
-    </h2>
-  </header>
-  <div class="flex flex-col gap-10">
-    <div class="flex flex-col gap-5">
-      <div class="flex flex-col gap-1">
-        <h2 class="text-lg font-semibold text-slate-200">Full Stack Developer • Padre e Hijo</h2>
-        <p class="text-sm text-slate-400">September 2022 - June 2023</p>
-      </div>
-      <ul class="list-disc flex flex-col gap-2 ml-5 text-gray-300 text-md">
-        <li>Improved purchasing, increasing conversions by 20%. Integrated gateways, security, and monitored data transmission.</li>
-        <li>Led designers, developers, and marketers, ensuring successful project delivery, meeting deadlines, exceeding expectations.</li>
-        <li>Reduced loading time by 30%, improving user experience, increasing retention, and enhancing search ranking.</li>
-      </ul>
-    </div>
+<div class="flex flex-col gap-10">
+  <div class="flex flex-col gap-1">
+    <h2 class="text-lg font-semibold text-slate-200">{job} • {enterprise}</h2>
+    <p class="text-sm text-slate-400">{dateBginF} - {dateEndF}</p>
   </div>
-</section>
+  <ul class="list-disc flex flex-col gap-2 ml-5 text-gray-300 text-md">
+    {
+      kAcomp.map((item) => (
+        <li>{item}</li>
+      ))
+    }
+  </ul>
+</div>
