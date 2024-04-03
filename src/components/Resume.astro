@@ -1,5 +1,8 @@
 ---
 import { Image } from 'astro:assets';
+import ResumeIcon from '../icons/ResumeIcon.astro';
+import Github from '../icons/Github.astro';
+import Button from './Button.astro';
 ---
 
 <section class="flex flex-col sm:flex-row items-center gap-5">
@@ -17,15 +20,21 @@ import { Image } from 'astro:assets';
   <div class="flex flex-col items-center sm:items-start gap-3">
     <div class="flex flex-col items-left gap-2">
       <h1 class="text-2xl sm:text-4xl text-center sm:text-left font-bold text-slate-100 ">CodingGaby</h1>
-      <p class="text-slate-300 text-sm sm:text-lg max-w-xl rounded-2xl">Seeking Opportunities to Contribute to the Digital World</p>
-    </div>
-    <div class="flex gap-3">
-      <a href="../../CV.pdf" target="_blank" download="CV-GabrielOsorio">
-        <button type="button" class="text-white bg-indigo-500 hover:bg-indigo-600 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center me-2 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:ring-indigo-700 before:ease relative overflow-hidden shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:before:-translate-x-40">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file mr-1" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /></svg>
+      <p 
+        class="text-slate-300 text-sm text-center sm:text-lg max-w-xl rounded-2xl">
+        Seeking Opportunities to Contribute to the Digital World
+      </p>
+      <div class="flex gap-3">
+        <Button id="Resume" href="/CV.pdf" color='purple'>
+          <ResumeIcon/>
           Resume
-        </button>	
-      </a>
+        </Button>
+        <Button id="GitHub" href="https://github.com/CodingGaby" color='gray'>
+          <Github/>
+          GitHub
+        </Button>
+      </div>
     </div>
   </div>
 </section>
+<hr class="border border-solid border-gray-300 dark:border-gray-600 rounded-md">
