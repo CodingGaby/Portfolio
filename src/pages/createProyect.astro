@@ -1,0 +1,88 @@
+---
+import SubmitBttn from "@components/ui/buttons/SubmitBttn.astro"
+import Layout from "../layouts/Layout.astro"
+import Input from "src/components/ui/form/Input.astro"
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+
+import { db } from "astro:db";
+import { Proyect } from "astro:db";
+import { isDbError } from "astro:db";
+
+const uploadFile = function(file: any) {}
+
+if (Astro.request.method === 'POST') {
+	// Analizar datos de formulario
+  const formData = await Astro.request.formData();
+	
+  const name = formData.get('proyName');
+  const description = formData.get('desc');
+  const homepage = formData.get('homepage');
+  const img = formData.get('img');
+	const id = crypto.randomUUID();
+
+
+	if (typeof name === 'string' && typeof description === 'string' && typeof homepage === 'string' &&  typeof id === 'string' && typeof img === 'string') {
+			// Insert data from the form to the User and upload it to the DB
+			// try {
+			// 	await db.insert(Proyect).values({
+			// 		id: id,
+			// 		name: name,
+			// 		desc: description,
+      //     homePage: homepage,
+      //     img: img
+			// 	});
+			// } catch (e) {
+			// 	if (isDbError(e)) {
+			// 		console.error(`No se puede insertar un proyecto con nombre ${name}\n\n${e.message}`);
+					
+    	// 	} else {
+			// 		console.error('Se ha producido un error inesperado');
+			// 	}
+			// }
+		}
+}
+
+// id: crypto.randomUUID(),
+// name: "SpaceXLaunches",
+// desc: "Aplicación en Astro ocupando la api \"SpaceXdata\" para mostrar los lanzamientos de SpaceX",
+// homePage: "https://spacexlaunches-b.vercel.app/",
+// img: "https://firebasestorage.googleapis.com/v0/b/imgspor.appspot.com/o/spacex.png?alt=media&token=2e200b65-f9c6-4cf3-963c-4bcf6d2e6b01"
+
+---
+
+<Layout title="Create | Coding Gaby 👩‍💻">
+  <main class="mx-auto max-w-3xl px-5 mb-5 flex flex-col gap-10">
+    <section class="flex justify-center items-center h-screen flex-col">
+      <h1 class="text-2xl sm:text-4xl text-center sm:text-left font-bold text-slate-100 mb-12 ">Create a Proyect</h1>
+      <div>
+        <form method="POST" class="flex flex-col">
+          <!--Proyect name INP -->
+          <Input name="proyName" type="text" title="Name" isRequired={true} placeholder=""/>
+  
+          <!--Description INP -->
+          <Input name="desc" type="text" title="Description" isRequired={true} placeholder=""/>
+  
+          <!--Homepage Link INP -->
+          <Input name="homepage" type="url" title="Homepage Link" isRequired={true} placeholder=""/>
+  
+          <!--Image Link INP -->
+          <Input name="img" type="file" title="Image" isRequired={true} placeholder=""/>
+
+          <!--Submit BTN -->
+          <SubmitBttn title="Create"/>
+        </form>
+      </div>
+    </section>
+  </main>
+</Layout>
+<script type="module">
+    const fileInput = document.querySelector("#img"); // <input id="files" type="file" multiple /> 
+    const file = fileInput.files.item(0);
+
+    console.log(file)
+</script>

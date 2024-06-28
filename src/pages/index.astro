@@ -1,17 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Resume from "../components/Resume.astro"
-import ExpCard from "../components/ExpCard.astro"
-import Proyects from '../components/Proyects.astro';
+import ProyectsList from '../components/ProyectsList.astro';
+import Experiences from '../components/Experiences.astro';
 ---
 
 <Layout title="Coding Gaby 👩‍💻">
 	<main class="mx-auto max-w-3xl px-5 mb-5 flex flex-col gap-10">
-		<header></header>
+		<!--TODO: NavBar -->
 		<Resume/>
-		<hr class="border border-solid border-gray-300 dark:border-gray-600 rounded-md">
-		<ExpCard/>
-		<Proyects/>
+		<Experiences/>
+		<ProyectsList/>
 	</main>
 </Layout>
 

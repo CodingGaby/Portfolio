@@ -13,18 +13,14 @@ const { name, description, homepage, imgSrc } = Astro.props;
 ---
 <a href={homepage} target="_blank" class="max-w-[300px] flex">
   <div class="hover:bg-gray-700/30 !z-5 relative rounded-[20px] max-w-[300px]  bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px undefined block group border-gray-300/30 hover:border-gray-300 border-2  dark:border-gray-700 dark:hover:border-gray-300/30 rounded-[24px] hover:sm:shadow hover:scale-105 transition ">
-    <div class="h-full w-full">
-        <div class="relative w-full">
-            <Image loading="eager" src={imgSrc} alt=`Proyect - ${name}` inferSize={true} class="mb-3 h-full w-full rounded-[12px] 3xl:h-full 3xl:w-full" />
+    <Image loading="eager" src={imgSrc ? imgSrc : `https://www.solidbackgrounds.com/images/1920x1080/1920x1080-gray-solid-color-background.jpg`} alt=`Proyect - ${name}` height=1080 width=1920 class="mb-3 aspect-video h-full w-full rounded-[12px] 3xl:h-full 3xl:w-full" />
+    <div class="flex items-center justify-between md:items-start">
+        <div>
+            <p class="text-lg font-bold text-slate-200"> { name } </p>
+            <p class="text-sm font-medium text-slate-400"> { description } </p>
         </div>
-        <div class="flex items-center justify-between md:items-start">
-            <div>
-                <p class="text-lg font-bold text-slate-200"> { name } </p>
-                <p class="text-sm font-medium text-slate-400"> { description } </p>
-            </div>
-            <div class="flex flex-row-reverse">
-                
-            </div>
+        <div class="flex flex-row-reverse">
+            
         </div>
     </div>
   </div> 
