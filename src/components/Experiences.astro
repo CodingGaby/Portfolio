@@ -2,25 +2,34 @@
 import ExpCard from "./ExpCard.astro";
 import Header from "./Header.astro";
 
-const date1 = new Date(2022, 8);
-const date2 = new Date(2023, 5);
-const keys = [
-  "Improved purchasing, increasing conversions by 20%. Integrated gateways, security, and monitored data transmission.",
-  "Led designers, developers, and marketers, ensuring successful project delivery, meeting deadlines, exceeding expectations.", 
-  "Reduced loading time by 30%, improving user experience, increasing retention, and enhancing search ranking."
+const exps = [
+  {
+    job: "Full Stack Developer",
+    enterprise: "Padre e Hijo",
+    dateBgn: new Date(2022, 8),
+    dateEnd: new Date(2023, 5),
+    kAcomp: [
+      "Improved purchasing, increasing conversions by 20%. Integrated gateways, security, and monitored data transmission.",
+      "Led designers, developers, and marketers, ensuring successful project delivery, meeting deadlines, exceeding expectations.", 
+      "Reduced loading time by 30%, improving user experience, increasing retention, and enhancing search ranking."
+    ],
+  },
 ]
-
 ---
 
 <section class="w-full">
   <Header>
     Experience 💼
   </Header>
-  <ExpCard
-    job="Full Stack Developer"
-    enterprise="Padre e Hijo"
-    dateBgin={date1}
-    dateEnd={date2}
-    kAcomp={keys}
-  />
+  {
+    exps.map((exp) => (
+      <ExpCard 
+        job={exp.job}
+        enterprise={exp.enterprise}
+        dateBgin={exp.dateBgn}
+        dateEnd={exp.dateEnd}
+        kAcomp={exp.kAcomp}
+      />
+    ))
+  }
 </section>

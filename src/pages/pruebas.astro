@@ -2,24 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import { db, Proyect } from 'astro:db';
 import ProCard from '../components/ProCard.astro';
-import fetchProyects from '../functions/getProy'
-  
-  
-const proyects = await db.select().from(Proyect)
-
-// Llama a la función fetchProjects para obtener los proyectos cuando lo necesites
-//const projects = await fetchProyects.json();
-  
-
-const combatRes = await fetch(
-  "http://localhost:4321/api/proyects/getProyects",
-	{
-		method: "GET",
-		headers: {}
-	}
-)
-
-console.log(combatRes.json())
 ---
 
 <Layout title="jasdj">

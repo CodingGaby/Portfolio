@@ -2,56 +2,76 @@
 import SubmitBttn from "@components/ui/buttons/SubmitBttn.astro"
 import Layout from "../layouts/Layout.astro"
 import Input from "src/components/ui/form/Input.astro"
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-
 import { db } from "astro:db";
 import { Proyect } from "astro:db";
 import { isDbError } from "astro:db";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "src/firebase/client";
 
-const uploadFile = function(file: any) {}
 
 if (Astro.request.method === 'POST') {
 	// Analizar datos de formulario
   const formData = await Astro.request.formData();
-	
+
   const name = formData.get('proyName');
   const description = formData.get('desc');
   const homepage = formData.get('homepage');
-  const img = formData.get('img');
-	const id = crypto.randomUUID();
+  const img = formData.get('img') as File;
+  const id = crypto.randomUUID();
+  let imgURL;
 
+  try {
+    const arrayBuffer = await img.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+    
+    const imageUpload = async () => {
+      if (!img) return;
+      const imgRef = ref(storage, `proysImages/${crypto.randomUUID() + img.name}`);
 
-	if (typeof name === 'string' && typeof description === 'string' && typeof homepage === 'string' &&  typeof id === 'string' && typeof img === 'string') {
-			// Insert data from the form to the User and upload it to the DB
-			// try {
-			// 	await db.insert(Proyect).values({
-			// 		id: id,
-			// 		name: name,
-			// 		desc: description,
-      //     homePage: homepage,
-      //     img: img
-			// 	});
-			// } catch (e) {
-			// 	if (isDbError(e)) {
-			// 		console.error(`No se puede insertar un proyecto con nombre ${name}\n\n${e.message}`);
-					
-    	// 	} else {
-			// 		console.error('Se ha producido un error inesperado');
-			// 	}
-			// }
+      try {
+        const snapshot = await uploadBytes(imgRef, uint8Array);
+        imgURL = await getDownloadURL(snapshot.ref);
+        console.log(`Image ${img.name} uploaded ✅`);
+        console.log("URL Imagen obtenida ✅");
+      } catch (error) {
+        console.error('Upload failed:', error);
+      }
+    };
+
+    await imageUpload();
+    console.log(`la url de la imagen es: ${imgURL}`);
+  } catch (error) {
+    console.error('Error processing the image file:', error);
+  }
+
+  if (typeof name === 'string' && typeof description === 'string' && typeof homepage === 'string' &&  typeof id === 'string' && typeof imgURL === 'string') {
+    console.log("all rigthy")
+		//Insert data from the form to the User and upload it to the DB
+		try {
+			await db.insert(Proyect).values({
+				id: id,
+				name: name,
+				desc: description,
+        homePage: homepage,
+        img: imgURL
+			});
+		} catch (e) {
+			if (isDbError(e)) {
+				console.error(`No se puede insertar un proyecto con nombre ${name}\n\n${e.message}`);
+	
+    	} else {
+				console.error('Se ha producido un error inesperado');
+			}
 		}
+	}
+	return Astro.redirect("/");
 }
 
 // id: crypto.randomUUID(),
 // name: "SpaceXLaunches",
 // desc: "Aplicación en Astro ocupando la api \"SpaceXdata\" para mostrar los lanzamientos de SpaceX",
 // homePage: "https://spacexlaunches-b.vercel.app/",
-// img: "https://firebasestorage.googleapis.com/v0/b/imgspor.appspot.com/o/spacex.png?alt=media&token=2e200b65-f9c6-4cf3-963c-4bcf6d2e6b01"
+// img: "https://firebasestorage...."
 
 ---
 
@@ -60,7 +80,7 @@ if (Astro.request.method === 'POST') {
     <section class="flex justify-center items-center h-screen flex-col">
       <h1 class="text-2xl sm:text-4xl text-center sm:text-left font-bold text-slate-100 mb-12 ">Create a Proyect</h1>
       <div>
-        <form method="POST" class="flex flex-col">
+        <form method="POST" enctype="multipart/form-data" class="flex flex-col">
           <!--Proyect name INP -->
           <Input name="proyName" type="text" title="Name" isRequired={true} placeholder=""/>
   
@@ -72,7 +92,7 @@ if (Astro.request.method === 'POST') {
   
           <!--Image Link INP -->
           <Input name="img" type="file" title="Image" isRequired={true} placeholder=""/>
-
+          
           <!--Submit BTN -->
           <SubmitBttn title="Create"/>
         </form>
@@ -80,9 +100,3 @@ if (Astro.request.method === 'POST') {
     </section>
   </main>
 </Layout>
-<script type="module">
-    const fileInput = document.querySelector("#img"); // <input id="files" type="file" multiple /> 
-    const file = fileInput.files.item(0);
-
-    console.log(file)
-</script>
