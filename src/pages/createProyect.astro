@@ -39,14 +39,11 @@ if (Astro.request.method === 'POST') {
     };
 
     await imageUpload();
-    console.log(`la url de la imagen es: ${imgURL}`);
   } catch (error) {
     console.error('Error processing the image file:', error);
   }
 
   if (typeof name === 'string' && typeof description === 'string' && typeof homepage === 'string' &&  typeof id === 'string' && typeof imgURL === 'string') {
-    console.log("all rigthy")
-		//Insert data from the form to the User and upload it to the DB
 		try {
 			await db.insert(Proyect).values({
 				id: id,
