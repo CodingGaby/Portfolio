@@ -1,5 +1,6 @@
 ---
 import formatDate from '../functions/formatDate.ts'
+import Divider from './ui/Divider.astro'
 
 interface Props {
   job: string
@@ -18,7 +19,7 @@ const [dateBginF, dateEndF] = [
 
 ---
 
-<div class="flex flex-col mt-6">
+<div class="flex flex-col my-6">
   <div class="flex flex-col">
     <h2 class="text-lg font-semibold text-slate-200">{job} • {enterprise}</h2>
     <p class="text-sm text-slate-400">{dateBginF} - {dateEndF ? dateEndF : "Present"}</p>
@@ -31,4 +32,4 @@ const [dateBginF, dateEndF] = [
     }
   </ul>
 </div>
-<hr class="mt-6 border border-solid border-gray-600 rounded-md">
+<Divider/>
