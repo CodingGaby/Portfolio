@@ -1,4 +1,6 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
+
 interface Props {
 	title: string;
 }
@@ -30,6 +32,7 @@ console.log(
 		<link href='https://fonts.googleapis.com/css?family=Plus Jakarta Sans' rel='stylesheet'>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions/>
 	</head>
 	<body class=" pb-0 sm:pb-6">
 		<slot />
@@ -58,6 +61,7 @@ console.log(
 			rgb(var(--accent-light)) 30%,
 			white 60%
 		);
+		color: white
 	}
 	html {
 		font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
