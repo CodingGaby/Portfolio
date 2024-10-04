@@ -23,7 +23,7 @@ const Experience = defineTable({
 
 export default defineDb({
   tables: {
-    Project
+    Project,
   },
 })
 
