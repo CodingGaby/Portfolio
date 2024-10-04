@@ -6,13 +6,12 @@ import Header from "./Header.astro";
 
 
 const proyects = await db.select().from(Proyect)
-console.log(proyects)
 ---
 <section class="w-full">
   <Header>
     Proyects 🛠️
   </Header>
-  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-2 sm:flex-row items-center justify-center justify-items-center">
+  <div class="flex flex-wrap gap-8 sm:grid-cols-2 lg:grid-cols-2 sm:flex-row items-center justify-center justify-items-center grid-container">
     {
       proyects.map((proy) => (
         <ProCard
