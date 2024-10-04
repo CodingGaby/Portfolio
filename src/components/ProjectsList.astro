@@ -1,0 +1,25 @@
+---
+import { db, Project } from "astro:db";
+import ProCard from "./ProCard.astro";
+import Header from "./Header.astro";
+
+const projects = await db.select().from(Project);
+---
+<section class="w-full">
+  <Header> Projects 🛠️ </Header>
+  <div
+    class="flex flex-wrap gap-8 sm:grid-cols-2 lg:grid-cols-2 sm:flex-row items-center justify-center justify-items-center"
+  >
+    {
+      projects.map((proy) => (
+        <ProCard
+          id={proy.id}
+          name={proy.name}
+          description={proy.desc}
+          homepage={proy.homePage}
+          imgSrc={proy.img}
+        />
+      ))
+    }
+  </div>
+</section>

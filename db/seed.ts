@@ -1,7 +1,7 @@
-import { db, Proyect } from 'astro:db';
+import { db, Project } from 'astro:db';
 
 export default async function() {
-  await db.insert(Proyect).values(
+  await db.insert(Project).values(
     [
       { 
         id: crypto.randomUUID(),

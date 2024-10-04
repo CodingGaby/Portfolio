@@ -1,38 +1,55 @@
 ---
-import { db } from "astro:db"
-import Layout from "../../layouts/Layout.astro"
-import { Proyect } from "astro:db"
-import { eq } from "astro:db"
-import Image from "astro/components/Image.astro"
-import Button from "@components/Button.astro"
-import Github from "src/icons/Github.astro"
-import Deploy from "src/icons/Deploy.astro"
-const { id } = Astro.params
+import { db } from "astro:db";
+import Layout from "../../layouts/Layout.astro";
+import { Project } from "astro:db";
+import { eq } from "astro:db";
+import Image from "astro/components/Image.astro";
+import Button from "@components/Button.astro";
+import Github from "src/icons/Github.astro";
+import Deploy from "src/icons/Deploy.astro";
+const { id } = Astro.params;
 
-const proyect = await db.select().from(Proyect).where(eq(Proyect.id, `${id}`))
+const project = await db
+  .select()
+  .from(Project)
+  .where(eq(Project.id, `${id}`));
 
-const { name, desc, homePage, img } = proyect[0]
-
-
+const { name, desc, homePage, img } = project[0];
 ---
 
-<Layout title=`${name} | Proyect`>
+<Layout title=`${name} | Project`>
   <main class="mx-auto max-w-3xl px-5 mb-5 flex flex-col">
     <a href="/" class="items-start py-8">← Go back</a>
     <section class="flex items-center h-screen flex-col">
-      <h1 class="text-2xl sm:text-4xl text-center sm:text-left font-bold text-slate-100 mt-9 " transition:name=`proyect-${name}`>{name}</h1>
+      <h1
+        class="text-2xl sm:text-4xl text-center sm:text-left font-bold text-slate-100 mt-9"
+        transition:name=`project-${name}`
+      >
+        {name}
+      </h1>
       <div class="my-9">
         <p>
           {desc}
         </p>
-        <Image src={img} width={728} height={383} alt={`${name} image`} loading="eager" class="rounded-[24px] my-9 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]" transition:name=`image-${name}`/>
+        <Image
+          src={img}
+          width={728}
+          height={383}
+          alt={`${name} image`}
+          loading="eager"
+          class="rounded-[24px] my-9 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"
+          transition:name=`image-${name}`
+        />
         <div class="flex justify-center gap-9">
           <Button id=`${name}-link` href={homePage}>
-            <Deploy/>
+            <Deploy />
             Deploy Page
           </Button>
-          <Button id=`${name}-link` href=`https://github.com/CodingGaby/${name}`>
-            <Github/>
+          <Button
+            id=`${name}-link`
+            href=`https://github.com/CodingGaby/${name}`
+          >
+            <Github />
             Github Page
           </Button>
         </div>

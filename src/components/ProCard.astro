@@ -1,28 +1,43 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 interface Props {
-  id: string
-  name: string
-  description: string
-  homepage: string
-  imgSrc: string
+  id: string;
+  name: string;
+  description: string;
+  homepage: string;
+  imgSrc: string;
 }
 
 const { name, description, homepage, imgSrc, id } = Astro.props;
-
 ---
-<a href=`/proyect/${id}` class="max-w-[300px] flex min-h-[300px]">
-  <div class="hover:bg-gray-700/30 !z-5 relative rounded-[20px] max-w-[300px]  bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px undefined block group border-gray-300/30 hover:border-gray-300 border-2  dark:border-gray-700 rounded-[24px] hover:sm:shadow hover:scale-105 transition shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
-    <Image loading="lazy" src={imgSrc ? imgSrc : `https://www.solidbackgrounds.com/images/1920x1080/1920x1080-gray-solid-color-background.jpg`} alt=`Proyect - ${name}` height=1080 width=1920 class="mb-3 aspect-video h-full w-full rounded-[12px] 3xl:h-full 3xl:w-full" transition:name=`image-${name}`/>
+
+<a href=`/project/${id}` class="max-w-[300px] flex min-h-[300px]">
+  <div
+    class="hover:bg-gray-700/30 !z-5 relative rounded-[20px] max-w-[300px] bg-clip-border shadow-3xl shadow-shadow-500 flex flex-col w-full !p-4 3xl:p-![18px undefined block group border-gray-300/30 hover:border-gray-300 border-2 dark:border-gray-700 rounded-[24px] hover:sm:shadow hover:scale-105 transition shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"
+  >
+    <Image
+      loading="lazy"
+      src={imgSrc
+        ? imgSrc
+        : `https://www.solidbackgrounds.com/images/1920x1080/1920x1080-gray-solid-color-background.jpg`}
+      alt=`Project - ${name}`
+      height="1080"
+      width="1920"
+      class="mb-3 aspect-video h-full w-full rounded-[12px] 3xl:h-full 3xl:w-full"
+      transition:name=`image-${name}`
+    />
     <div class="flex items-center justify-between md:items-start">
-        <div>
-            <p class="text-lg font-bold text-slate-200" transition:name=`proyect-${name}`> { name } </p>
-            <p class="text-sm font-medium text-slate-400"> { description } </p>
-        </div>
-        <div class="flex flex-row-reverse">
-            
-        </div>
+      <div>
+        <p
+          class="text-lg font-bold text-slate-200"
+          transition:name=`project-${name}`
+        >
+          {name}
+        </p>
+        <p class="text-sm font-medium text-slate-400">{description}</p>
+      </div>
+      <div class="flex flex-row-reverse"></div>
     </div>
-  </div> 
+  </div>
 </a>

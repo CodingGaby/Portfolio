@@ -1,32 +1,34 @@
 ---
-import SubmitBttn from "@components/ui/buttons/SubmitBttn.astro"
-import Layout from "../layouts/Layout.astro"
-import Input from "src/components/ui/form/Input.astro"
+import SubmitBttn from "@components/ui/buttons/SubmitBttn.astro";
+import Layout from "../layouts/Layout.astro";
+import Input from "src/components/ui/form/Input.astro";
 import { db } from "astro:db";
-import { Proyect } from "astro:db";
+import { Project } from "astro:db";
 import { isDbError } from "astro:db";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "src/firebase/client";
 
-
-if (Astro.request.method === 'POST') {
-	// Analizar datos de formulario
+if (Astro.request.method === "POST") {
+  // Analizar datos de formulario
   const formData = await Astro.request.formData();
 
-  const name = formData.get('proyName');
-  const description = formData.get('desc');
-  const homepage = formData.get('homepage');
-  const img = formData.get('img') as File;
+  const name = formData.get("proyName");
+  const description = formData.get("desc");
+  const homepage = formData.get("homepage");
+  const img = formData.get("img") as File;
   const id = crypto.randomUUID();
   let imgURL;
 
   try {
     const arrayBuffer = await img.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
-    
+
     const imageUpload = async () => {
       if (!img) return;
-      const imgRef = ref(storage, `proysImages/${crypto.randomUUID() + img.name}`);
+      const imgRef = ref(
+        storage,
+        `proysImages/${crypto.randomUUID() + img.name}`
+      );
 
       try {
         const snapshot = await uploadBytes(imgRef, uint8Array);
@@ -34,34 +36,41 @@ if (Astro.request.method === 'POST') {
         console.log(`Image ${img.name} uploaded ✅`);
         console.log("URL Imagen obtenida ✅");
       } catch (error) {
-        console.error('Upload failed:', error);
+        console.error("Upload failed:", error);
       }
     };
 
     await imageUpload();
   } catch (error) {
-    console.error('Error processing the image file:', error);
+    console.error("Error processing the image file:", error);
   }
 
-  if (typeof name === 'string' && typeof description === 'string' && typeof homepage === 'string' &&  typeof id === 'string' && typeof imgURL === 'string') {
-		try {
-			await db.insert(Proyect).values({
-				id: id,
-				name: name,
-				desc: description,
+  if (
+    typeof name === "string" &&
+    typeof description === "string" &&
+    typeof homepage === "string" &&
+    typeof id === "string" &&
+    typeof imgURL === "string"
+  ) {
+    try {
+      await db.insert(Project).values({
+        id: id,
+        name: name,
+        desc: description,
         homePage: homepage,
-        img: imgURL
-			});
-		} catch (e) {
-			if (isDbError(e)) {
-				console.error(`No se puede insertar un proyecto con nombre ${name}\n\n${e.message}`);
-	
-    	} else {
-				console.error('Se ha producido un error inesperado');
-			}
-		}
-	}
-	return Astro.redirect("/");
+        img: imgURL,
+      });
+    } catch (e) {
+      if (isDbError(e)) {
+        console.error(
+          `No se puede insertar un rojecto con nombre ${name}\n\n${e.message}`
+        );
+      } else {
+        console.error("Se ha producido un error inesperado");
+      }
+    }
+  }
+  return Astro.redirect("/");
 }
 
 // id: crypto.randomUUID(),
@@ -69,29 +78,56 @@ if (Astro.request.method === 'POST') {
 // desc: "Aplicación en Astro ocupando la api \"SpaceXdata\" para mostrar los lanzamientos de SpaceX",
 // homePage: "https://spacexlaunches-b.vercel.app/",
 // img: "https://firebasestorage...."
-
 ---
 
 <Layout title="Create | Coding Gaby 👩‍💻">
   <main class="mx-auto max-w-3xl px-5 mb-5 flex flex-col gap-10">
     <section class="flex justify-center items-center h-screen flex-col">
-      <h1 class="text-2xl sm:text-4xl text-center sm:text-left font-bold text-slate-100 mb-12 ">Create a Proyect</h1>
+      <h1
+        class="text-2xl sm:text-4xl text-center sm:text-left font-bold text-slate-100 mb-12"
+      >
+        Create a Project
+      </h1>
       <div>
         <form method="POST" enctype="multipart/form-data" class="flex flex-col">
-          <!--Proyect name INP -->
-          <Input name="proyName" type="text" title="Name" isRequired={true} placeholder=""/>
-  
+          <!--Project name INP -->
+          <Input
+            name="proyName"
+            type="text"
+            title="Name"
+            isRequired={true}
+            placeholder=""
+          />
+
           <!--Description INP -->
-          <Input name="desc" type="text" title="Description" isRequired={true} placeholder=""/>
-  
+          <Input
+            name="desc"
+            type="text"
+            title="Description"
+            isRequired={true}
+            placeholder=""
+          />
+
           <!--Homepage Link INP -->
-          <Input name="homepage" type="url" title="Homepage Link" isRequired={true} placeholder=""/>
-  
+          <Input
+            name="homepage"
+            type="url"
+            title="Homepage Link"
+            isRequired={true}
+            placeholder=""
+          />
+
           <!--Image Link INP -->
-          <Input name="img" type="file" title="Image" isRequired={true} placeholder=""/>
-          
+          <Input
+            name="img"
+            type="file"
+            title="Image"
+            isRequired={true}
+            placeholder=""
+          />
+
           <!--Submit BTN -->
-          <SubmitBttn title="Create"/>
+          <SubmitBttn title="Create" />
         </form>
       </div>
     </section>
